@@ -1,0 +1,18 @@
+<form [formGroup]="profileForm" (ngSubmit)="userLogin()">
+  <h2>User Login</h2>
+  <mat-form-field class="example-full-width">
+    <mat-label>Login</mat-label>
+    <textarea matInput placeholder="user120" formControlName="login"></textarea>
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>password</mat-label>
+    <textarea matInput placeholder="hrgs" formControlName="password"></textarea>
+  </mat-form-field>
+  <button type="submit">Login</button>
+</form>
+
+<!-- <ng-container *ngIf="!!firstSignal">
+  <div *ngFor="let item of firstSignal()">
+    {{ item.login }} {{ item.password }}
+  </div>
+</ng-container> -->
