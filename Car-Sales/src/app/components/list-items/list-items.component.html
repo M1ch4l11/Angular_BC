@@ -1,10 +1,11 @@
 <p>list-items works!</p>
 <div #dynamicComponentContainer></div>
 <app-search></app-search>
+<button (click)="onloadComponent({type})">New</button>
 <div *ngIf="items">
   <app-item
-    (loadComponentEvent)="onloadComponent($event)"
     *ngFor="let item of items"
+    (loadComponentEvent)="onloadComponent($event)"
     [type]="type"
     [item]="item"
   ></app-item>

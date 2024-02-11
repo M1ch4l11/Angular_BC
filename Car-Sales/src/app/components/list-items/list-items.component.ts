@@ -23,7 +23,7 @@ export class ListItemsComponent<T> {
 
   constructor(private formTemplates: FormTemplatesService) {}
 
-  onloadComponent(event: { type: string; item: any }): void {
+  onloadComponent(event: { type: string; item?: any }): void {
     this.formTemplates.loadComponent(this.dynamicComponentContainer, event);
   }
 }

@@ -17,7 +17,7 @@ export class FormTemplatesService {
 
   loadComponent(
     dynamicComponentContainer: ViewContainerRef,
-    event: { type: string; item: any }
+    event: { type: string; item?: any }
   ): void {
     // clean up div container
     dynamicComponentContainer.clear();
@@ -199,10 +199,10 @@ export class FormTemplatesService {
     );
   }
 
-  getformTemplateByType(event: { type: string; item: any }): any {
+  getformTemplateByType(event: { type: string; item?: any }): any {
     return event.type == 'Employee'
-      ? this.getUserFormTemplate(event.item)
-      : this.getProductFormTemplate(event.item);
+      ? this.getUserFormTemplate(event?.item)
+      : this.getProductFormTemplate(event?.item);
   }
 
   actionsEvent(componentRef: ComponentRef<FormComponent>): void {

@@ -11,7 +11,7 @@ import { ItemType } from 'src/app/models/item-type';
 })
 export class ItemComponent {
   @Output()
-  loadComponentEvent: EventEmitter<{ type: string; item: any }> =
+  loadComponentEvent: EventEmitter<{ type: string; item?: any }> =
     new EventEmitter();
   @Input() type!: ItemType;
   // todo create generative type Product, Employee
