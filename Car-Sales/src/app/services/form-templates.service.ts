@@ -25,7 +25,7 @@ export class FormTemplatesService {
     // read component & create component
     const componentRef = this.componentEvent(dynamicComponentContainer);
     // add styles
-    this.insertStyle(componentRef.location.nativeElement);
+    // this.insertStyle(componentRef.location.nativeElement);
     // check type and return form Template
     componentRef.instance.options$ = this.getformTemplateByType(event);
     componentRef.instance.btnTitle = 'Edit';
@@ -185,12 +185,12 @@ export class FormTemplatesService {
     };
   }
 
-  insertStyle(elementRef: HTMLElement): void {
-    elementRef.style.position = 'fixed';
-    elementRef.style.width = '100%';
-    elementRef.style.display = 'flex';
-    elementRef.style.justifyContent = 'center';
-  }
+  // insertStyle(elementRef: HTMLElement): void {
+  //   elementRef.style.position = 'fixed';
+  //   elementRef.style.width = '100%';
+  //   elementRef.style.display = 'flex';
+  //   elementRef.style.justifyContent = 'center';
+  // }
 
   componentEvent(
     dynamicComponentContainer: ViewContainerRef

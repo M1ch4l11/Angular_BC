@@ -1,37 +1,39 @@
-<div class="form-container" *ngIf="options$ as options">
-  <h2>{{ title }}</h2>
-  <form [formGroup]="form" (ngSubmit)="send(form.getRawValue())">
-    <div *ngFor="let field of fields" [formGroup]="form">
-      <label *ngIf="field.label && !field.visible">
-        {{ field.label }}{{ field.required ? "*" : "" }}
-      </label>
-      <ng-container [ngSwitch]="field.type" *ngIf="!field.visible">
-        <input
-          *ngSwitchCase="'input'"
-          [type]="
-            field.name === 'Email'
-              ? 'email'
-              : field.name === 'password'
-              ? 'password'
-              : ''
-          "
-          [formControlName]="field.name"
-          [placeholder]="field.placeholder"
-        />
-        <input
-          *ngSwitchCase="'inputNumber'"
-          type="number"
-          [formControlName]="field.name"
-          [placeholder]="field.placeholder"
-        />
-        <textarea
-          *ngSwitchCase="'text'"
-          style="width: 300px"
-          [formControlName]="field.name"
-          [placeholder]="field.placeholder"
-        ></textarea>
-      </ng-container>
-    </div>
-    <input class="save" type="submit" [value]="btnTitle || 'Save'" />
-  </form>
+<div class="modal-container">
+  <div class="form-container" *ngIf="options$ as options">
+    <h2>{{ title }}</h2>
+    <form [formGroup]="form" (ngSubmit)="send(form.getRawValue())">
+      <div *ngFor="let field of fields" [formGroup]="form">
+        <label *ngIf="field.label && !field.visible">
+          {{ field.label }}{{ field.required ? "*" : "" }}
+        </label>
+        <ng-container [ngSwitch]="field.type" *ngIf="!field.visible">
+          <input
+            *ngSwitchCase="'input'"
+            [type]="
+              field.name === 'Email'
+                ? 'email'
+                : field.name === 'password'
+                ? 'password'
+                : ''
+            "
+            [formControlName]="field.name"
+            [placeholder]="field.placeholder"
+          />
+          <input
+            *ngSwitchCase="'inputNumber'"
+            type="number"
+            [formControlName]="field.name"
+            [placeholder]="field.placeholder"
+          />
+          <textarea
+            *ngSwitchCase="'text'"
+            style="width: 300px"
+            [formControlName]="field.name"
+            [placeholder]="field.placeholder"
+          ></textarea>
+        </ng-container>
+      </div>
+      <input class="save" type="submit" [value]="btnTitle || 'Save'" />
+    </form>
+  </div>
 </div>
