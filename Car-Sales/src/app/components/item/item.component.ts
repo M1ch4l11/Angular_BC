@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ItemType } from 'src/app/models/item-type';
+import { FormEvent, ItemType } from 'src/app/models/item-type';
 
 @Component({
   selector: 'app-item',
@@ -11,8 +11,7 @@ import { ItemType } from 'src/app/models/item-type';
 })
 export class ItemComponent {
   @Output()
-  loadComponentEvent: EventEmitter<{ type: string; item?: any }> =
-    new EventEmitter();
+  loadComponentEvent: EventEmitter<FormEvent> = new EventEmitter();
   @Input() type!: ItemType;
   // todo create generative type Product, Employee
   @Input() item!: any;

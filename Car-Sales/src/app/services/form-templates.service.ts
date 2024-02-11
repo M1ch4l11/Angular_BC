@@ -8,6 +8,7 @@ import { FormInput } from '../models/form';
 import { Employee } from '../models/employee';
 import { Product } from '../models/product';
 import { FormComponent } from '../components/form/form.component';
+import { FormEvent } from '../models/item-type';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class FormTemplatesService {
 
   loadComponent(
     dynamicComponentContainer: ViewContainerRef,
-    event: { type: string; item?: any }
+    event: FormEvent
   ): void {
     // clean up div container
     dynamicComponentContainer.clear();
@@ -199,7 +200,7 @@ export class FormTemplatesService {
     );
   }
 
-  getformTemplateByType(event: { type: string; item?: any }): any {
+  getformTemplateByType(event: FormEvent): any {
     return event.type == 'Employee'
       ? this.getUserFormTemplate(event?.item)
       : this.getProductFormTemplate(event?.item);
