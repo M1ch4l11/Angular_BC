@@ -1,0 +1,22 @@
+<div *ngIf="item">
+  <h2>
+    {{ checkType() ? "Product code:" : "Employee Number:" }}
+    <strong>{{ checkType() ? item.productCode : item.employeeNumber }}</strong>
+  </h2>
+  <h3>
+    {{ checkType() ? item.productLine : item.firstName }}
+    {{ checkType() ? item.productName : item.lastName }}
+  </h3>
+  <p>
+    {{ checkType() ? "Quantity:" : " email:"
+    }}<strong>{{ checkType() ? item.quantityInStock : item.email }}</strong>
+  </p>
+  <p>
+    {{ checkType() ? "BuyPrice:" : "Jobtitle:"
+    }}<strong>{{ checkType() ? item.buyPrice : item.jobTitle }}</strong>
+  </p>
+  <p *ngIf="!checkType()">
+    OfficeCode: <strong>{{ item.officeCode }}</strong>
+  </p>
+  <button (click)="loadEvent()">Show more</button>
+</div>
