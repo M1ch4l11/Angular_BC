@@ -2,9 +2,17 @@
   padding: 16px;
   margin-top: 24px;
   border-radius: 15px;
+  button {
+    background-color: var(--container-light);
+    &:hover {
+      background-color: var(--button-dark);
+      cursor: pointer;
+    }
+  }
   .items-container {
-    margin-bottom: 80px;
-    padding: 16px;
-    border-radius: 15px;
+    padding-bottom: 80px;
+    padding-top: 80px;
+    border-radius: 80px;
+    background-color: var(--container-light);
   }
 }

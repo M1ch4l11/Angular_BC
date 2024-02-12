@@ -1,6 +1,7 @@
 nav {
   display: flex;
   padding: 22px;
+  background-color: var(--main-dark-bg);
   ul {
     margin-left: auto;
     display: flex;
@@ -11,6 +12,13 @@ nav {
       a {
         text-decoration: none;
         margin-right: 12px;
+        color: black;
+        &:hover {
+          color: var(--nav-pages-hover-light);
+        }
+      }
+      .active {
+        color: var(--nav-pages-hover-light);
       }
     }
   }

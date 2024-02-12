@@ -36,6 +36,16 @@ $Car-Sales-theme: mat.define-light-theme(
 
 /* You can add global styles to this file, and also import other style files */
 
+:root {
+  --main-light-bg: #e1f0da;
+  --main-dark-bg: #99bc85;
+  --container-light: #bfd8af;
+  --container-dark: #99bc85;
+  --button-light: #d9d9d9;
+  --button-dark: #99bc85;
+  --nav-pages-hover-light: #e1f0da;
+}
+
 html,
 body {
   height: 100%;
@@ -43,6 +53,7 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: var(--main-light-bg);
   .root-container {
     display: flex;
     flex-direction: column;

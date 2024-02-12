@@ -5,8 +5,53 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: antiquewhite;
+  background-color: rgb(antiquewhite, 0.9);
   left: 0;
   top: 0;
-  opacity: 0.9;
+  .form-container {
+    background-color: var(--container-dark);
+    border-radius: 80px;
+    padding: 48px;
+    form {
+      display: flex;
+      flex-direction: column;
+      .row {
+        display: grid;
+        margin-bottom: 8px;
+        label {
+          margin-bottom: 4px;
+        }
+        input,
+        textarea {
+          border: none;
+          border-bottom: 2px solid black;
+          outline: none;
+          width: 190px;
+          height: 20px;
+          font-size: larger;
+          background-color: inherit;
+          overflow: hidden;
+          color: var(--nav-pages-hover-light);
+        }
+        textarea {
+          height: 60px;
+        }
+      }
+      .save {
+        border: none;
+        background-color: var(--container-light);
+        margin-left: auto;
+        &:hover {
+          background-color: var(--container-dark);
+          cursor: pointer;
+          -webkit-box-shadow: 0px -2px 23px 26px var(--container-light);
+          -moz-box-shadow: 0px -2px 23px 26px var(--container-light);
+          box-shadow: 0px -2px 23px 26px var(--container-light);
+        }
+      }
+    }
+    -webkit-box-shadow: 0px -2px 23px 26px var(--container-dark);
+    -moz-box-shadow: 0px -2px 23px 26px var(--container-dark);
+    box-shadow: 0px -2px 23px 26px var(--container-dark);
+  }
 }

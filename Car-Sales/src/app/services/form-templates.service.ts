@@ -28,7 +28,7 @@ export class FormTemplatesService {
     // this.insertStyle(componentRef.location.nativeElement);
     // check type and return form Template
     componentRef.instance.options$ = this.getformTemplateByType(event);
-    componentRef.instance.btnTitle = 'Edit';
+    componentRef.instance.btnTitle = event.item ? 'Edit' : 'Save';
     // handle actions
     this.actionsEvent(componentRef);
   }
@@ -36,7 +36,7 @@ export class FormTemplatesService {
   getProductFormTemplate(product?: Product): FormInput {
     return {
       table: product ? 'productEdit' : 'product',
-      title: 'Insert product',
+      title: product ? 'Edit product' : 'Insert product',
       fields: [
         product
           ? {

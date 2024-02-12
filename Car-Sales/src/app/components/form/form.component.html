@@ -2,7 +2,7 @@
   <div class="form-container" #outBoxDiv *ngIf="options$ as options">
     <h2>{{ title }}</h2>
     <form [formGroup]="form" #formRef (ngSubmit)="send(form.getRawValue())">
-      <div *ngFor="let field of fields" [formGroup]="form">
+      <div class="row" *ngFor="let field of fields" [formGroup]="form">
         <label *ngIf="field.label && !field.visible">
           {{ field.label }}{{ field.required ? "*" : "" }}
         </label>
@@ -21,13 +21,13 @@
           />
           <textarea
             *ngSwitchCase="'text'"
-            style="width: 300px"
+            style="width: 300px; resize: none"
             [formControlName]="field.name"
             [placeholder]="field.placeholder"
           ></textarea>
         </ng-container>
       </div>
-      <input class="save" type="submit" [value]="btnTitle || 'Save'" />
+      <button class="save" type="submit">{{ btnTitle || "Save" }}</button>
     </form>
   </div>
 </div>

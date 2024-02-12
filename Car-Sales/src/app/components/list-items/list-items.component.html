@@ -1,7 +1,7 @@
 <div class="container">
+  <button (click)="onloadComponent({type})">Add</button>
   <div #dynamicComponentContainer></div>
   <app-search></app-search>
-  <button (click)="onloadComponent({type})">New</button>
   <div class="items-container" *ngIf="items">
     <app-item
       *ngFor="let item of items"

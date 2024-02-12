@@ -1,11 +1,11 @@
 <div *ngIf="item" class="item-container">
   <div class="content-wrapper">
-    <h2>
-      {{ checkType() ? "Product code:" : "Employee Number:" }}
-      <strong>{{
-        checkType() ? item.productCode : item.employeeNumber
-      }}</strong>
-    </h2>
+    <p>
+      {{ checkType() ? "Product code: " : "Employee Number: " }}
+      <strong>
+        {{ checkType() ? item.productCode : item.employeeNumber }}</strong
+      >
+    </p>
     <h3>
       {{ checkType() ? item.productLine : item.firstName }}
       {{ checkType() ? item.productName : item.lastName }}
@@ -13,11 +13,11 @@
   </div>
   <div class="content-wrapper middle-content">
     <p>
-      {{ checkType() ? "Quantity:" : " email:"
+      {{ checkType() ? "Quantity: " : " email: "
       }}<strong>{{ checkType() ? item.quantityInStock : item.email }}</strong>
     </p>
     <p>
-      {{ checkType() ? "BuyPrice:" : "Jobtitle:"
+      {{ checkType() ? "BuyPrice: " : "Jobtitle: "
       }}<strong>{{ checkType() ? item.buyPrice : item.jobTitle }}</strong>
     </p>
     <p *ngIf="!checkType()">
