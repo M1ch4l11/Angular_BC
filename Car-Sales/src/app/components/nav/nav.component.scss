@@ -1,12 +1,25 @@
-/* Search */
-// position: absolute;
-// width: 48px;
-// height: 48px;
-.account-brand {
-  /* Account */
-  //   position: absolute;
-  width: 69px;
-  height: 69px;
-  //   background-image: url("../../images/account_icon.png");
-  background-size: cover;
+nav {
+  display: flex;
+  padding: 22px;
+  ul {
+    margin-left: auto;
+    display: flex;
+    list-style-type: none;
+    li {
+      display: flex;
+      align-items: center;
+      a {
+        text-decoration: none;
+        margin-right: 12px;
+      }
+    }
+  }
+  .account-container {
+    margin-left: 10%;
+    .account-brand {
+      width: 48px;
+      height: 48px;
+      background-size: cover;
+    }
+  }
 }

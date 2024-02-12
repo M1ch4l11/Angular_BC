@@ -43,4 +43,9 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  .root-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
