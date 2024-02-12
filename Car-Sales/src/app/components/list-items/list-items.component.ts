@@ -26,4 +26,9 @@ export class ListItemsComponent<T> {
   onloadComponent(event: FormEvent): void {
     this.formTemplates.loadComponent(this.dynamicComponentContainer, event);
   }
+
+  deleteItemEvent(event: Event): void {
+    this.items = this.items.filter((item) => item !== event);
+    // Todu: remove from databes also
+  }
 }

@@ -9,13 +9,7 @@
         <ng-container [ngSwitch]="field.type" *ngIf="!field.visible">
           <input
             *ngSwitchCase="'input'"
-            [type]="
-              field.name === 'Email'
-                ? 'email'
-                : field.name === 'password'
-                ? 'password'
-                : ''
-            "
+            [type]="field.name === 'Email' ? 'email' : ''"
             [formControlName]="field.name"
             [placeholder]="field.placeholder"
           />

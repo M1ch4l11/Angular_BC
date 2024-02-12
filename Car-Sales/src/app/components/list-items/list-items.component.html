@@ -6,6 +6,7 @@
   <app-item
     *ngFor="let item of items"
     (loadComponentEvent)="onloadComponent($event)"
+    (deleteEvent)="deleteItemEvent($event)"
     [type]="type"
     [item]="item"
   ></app-item>

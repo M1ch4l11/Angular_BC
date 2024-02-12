@@ -12,6 +12,8 @@ import { FormEvent, ItemType } from 'src/app/models/item-type';
 export class ItemComponent {
   @Output()
   loadComponentEvent: EventEmitter<FormEvent> = new EventEmitter();
+  @Output()
+  deleteEvent: EventEmitter<any> = new EventEmitter();
   @Input() type!: ItemType;
   // todo create generative type Product, Employee
   @Input() item!: any;
@@ -22,5 +24,9 @@ export class ItemComponent {
 
   checkType(): boolean {
     return this.type === 'Product' || false;
+  }
+
+  deleteItem(item: any): void {
+    this.deleteEvent.emit(item);
   }
 }
