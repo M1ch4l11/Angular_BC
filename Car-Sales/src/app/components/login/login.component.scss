@@ -1,0 +1,11 @@
+form {
+  display: flex;
+  padding: 24px;
+  flex-direction: column;
+  h2 {
+    text-align: center;
+  }
+  .login {
+    margin-left: auto;
+  }
+}

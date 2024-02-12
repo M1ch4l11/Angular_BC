@@ -6,6 +6,9 @@ import {
   Output,
   Component,
   Signal,
+  ViewContainerRef,
+  ViewChild,
+  ElementRef,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -26,6 +29,8 @@ import { FormField, FormInput } from 'src/app/models/form';
 export class FormComponent implements OnInit {
   @Output() productEvent = new EventEmitter<Signal<any[]>>();
   @Output() employeeEvent = new EventEmitter<Signal<any[]>>();
+  @ViewChild('outBoxDiv') outBoxDivRef!: ElementRef;
+  @ViewChild('formRef') formRef!: ElementRef;
   @Input() options$: any;
   @Input() btnTitle?: string;
   table!: string;
@@ -33,7 +38,11 @@ export class FormComponent implements OnInit {
   form = this.fb.record({});
   fields!: FormField[];
 
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private dynamicComponentContainer: ViewContainerRef
+  ) {}
 
   ngOnInit(): void {
     this.createForm(this.options$.fields);
@@ -73,5 +82,21 @@ export class FormComponent implements OnInit {
 
   send(options: FormInput): void {
     console.log(options);
+  }
+
+  closeForm(event: Event): void {
+    const centeredDiv = this.outBoxDivRef.nativeElement;
+    const form = this.formRef.nativeElement;
+    const clickedElement = event.target as HTMLElement;
+    // return if mouse click is on the form
+    if (form.contains(clickedElement) || centeredDiv.contains(clickedElement)) {
+      return;
+    }
+    this.destroyComponent();
+  }
+
+  destroyComponent(): void {
+    const element = this.dynamicComponentContainer.element.nativeElement;
+    element.parentNode.removeChild(element);
   }
 }

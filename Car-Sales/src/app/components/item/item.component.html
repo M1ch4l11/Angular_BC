@@ -1,5 +1,5 @@
-<div *ngIf="item">
-  <div>
+<div *ngIf="item" class="item-container">
+  <div class="content-wrapper">
     <h2>
       {{ checkType() ? "Product code:" : "Employee Number:" }}
       <strong>{{
@@ -11,7 +11,7 @@
       {{ checkType() ? item.productName : item.lastName }}
     </h3>
   </div>
-  <div>
+  <div class="content-wrapper middle-content">
     <p>
       {{ checkType() ? "Quantity:" : " email:"
       }}<strong>{{ checkType() ? item.quantityInStock : item.email }}</strong>
@@ -23,9 +23,9 @@
     <p *ngIf="!checkType()">
       OfficeCode: <strong>{{ item.officeCode }}</strong>
     </p>
-    <button (click)="loadEvent()">Show more</button>
+    <button class="more-info" (click)="loadEvent()">Show more</button>
   </div>
-  <div>
-    <button (click)="deleteItem(item)">X</button>
+  <div class="content-wrapper">
+    <button class="delete-item" (click)="deleteItem(item)">X</button>
   </div>
 </div>

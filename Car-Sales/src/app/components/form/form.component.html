@@ -1,7 +1,7 @@
-<div class="modal-container">
-  <div class="form-container" *ngIf="options$ as options">
+<div class="modal-container" (click)="closeForm($event)">
+  <div class="form-container" #outBoxDiv *ngIf="options$ as options">
     <h2>{{ title }}</h2>
-    <form [formGroup]="form" (ngSubmit)="send(form.getRawValue())">
+    <form [formGroup]="form" #formRef (ngSubmit)="send(form.getRawValue())">
       <div *ngFor="let field of fields" [formGroup]="form">
         <label *ngIf="field.label && !field.visible">
           {{ field.label }}{{ field.required ? "*" : "" }}

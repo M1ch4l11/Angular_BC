@@ -1,5 +1,25 @@
-.search-brand {
-  background-size: cover;
-  width: 48px;
-  height: 48px;
+.search-container-outbox {
+  display: flex;
+  justify-content: center;
+  .search-container-inbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    border-radius: 15px;
+    width: fit-content;
+    input {
+      border: none;
+      border-bottom: 2px solid black;
+      outline: none;
+      width: 190px;
+      height: 20px;
+      font-size: larger;
+    }
+    .search-brand {
+      background-size: cover;
+      width: 48px;
+      height: 48px;
+    }
+  }
 }
