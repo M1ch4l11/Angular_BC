@@ -16,14 +16,14 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'users',
+    path: 'employees',
     loadComponent: () =>
-      import('./pages/users-page/users-page.component').then(
-        (c) => c.UsersPageComponent
+      import('./pages/employees-page/employees-page.component').then(
+        (c) => c.EmployeesPageComponent
       ),
   },
   {
-    path: 'login',
+    path: '',
     loadComponent: () =>
       import('./pages/login-pages/login-pages.component').then(
         (c) => c.LoginPagesComponent

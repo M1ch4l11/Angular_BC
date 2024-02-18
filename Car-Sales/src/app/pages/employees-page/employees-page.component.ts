@@ -8,9 +8,9 @@ import employee from '../../../assets/employees.json';
   selector: 'app-users-page',
   standalone: true,
   imports: [CommonModule, ListItemsComponent],
-  templateUrl: './users-page.component.html',
-  styleUrls: ['./users-page.component.scss'],
+  templateUrl: './employees-page.component.html',
+  styleUrls: ['./employees-page.component.scss'],
 })
-export class UsersPageComponent {
+export class EmployeesPageComponent {
   items: Employee[] = employee;
 }
