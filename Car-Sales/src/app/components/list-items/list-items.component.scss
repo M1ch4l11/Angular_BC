@@ -7,6 +7,9 @@
     &:hover {
       background-color: var(--button-dark);
       cursor: pointer;
+      -webkit-box-shadow: 0px -2px 23px 26px var(--container-light);
+      -moz-box-shadow: 0px -2px 23px 26px var(--container-light);
+      box-shadow: 0px -2px 23px 26px var(--container-light);
     }
   }
   .items-container {
