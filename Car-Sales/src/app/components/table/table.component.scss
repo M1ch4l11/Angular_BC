@@ -1,0 +1,53 @@
+$base-spacing-unit: 24px;
+$half-spacing-unit: $base-spacing-unit / 2;
+$color-for-content: #eeeeee;
+
+table {
+  border: 2px solid var(--container-dark);
+  background-color: var(--container-dark);
+  width: 100%;
+  border-radius: 8px;
+  .table-header {
+    display: flex;
+    width: 100%;
+    background-color: var(--container-dark);
+    color: black;
+    padding: ($base-spacing-unit * 1.5) 0;
+    .header-item {
+      text-transform: uppercase;
+    }
+  }
+
+  .table-row {
+    display: flex;
+    width: 100%;
+    padding: ($half-spacing-unit * 1.5) 0;
+
+    &:nth-of-type(even) {
+      background: $color-for-content;
+    }
+  }
+}
+
+.table-data,
+.header-item {
+  flex: 1 1 20%;
+  text-align: center;
+}
+
+.header-item {
+  text-transform: uppercase;
+}
+
+button {
+  background-color: var(--container-dark);
+  margin-left: auto;
+  margin-top: 1em;
+  &:hover {
+    background-color: var(--container-light);
+    cursor: pointer;
+    -webkit-box-shadow: 0px -2px 23px 26px var(--container-dark);
+    -moz-box-shadow: 0px -2px 23px 26px var(--container-dark);
+    box-shadow: 0px -2px 23px 26px var(--container-dark);
+  }
+}
