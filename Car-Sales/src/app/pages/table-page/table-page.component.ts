@@ -2,35 +2,120 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableComponent } from 'src/app/components/table/table.component';
 import { FilterComponent } from 'src/app/components/filter/filter.component';
-import { Column, TableColumnContent } from 'src/app/models/table-type';
+import { Column, Filter, TableContent } from 'src/app/models/table-type';
 import { MatSelectModule } from '@angular/material/select';
+import { DataService } from 'src/app/stores/data.service';
+import { tap } from 'rxjs';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-table-page',
   standalone: true,
-  imports: [CommonModule, TableComponent, FilterComponent, MatSelectModule],
+  imports: [
+    CommonModule,
+    TableComponent,
+    FilterComponent,
+    MatSelectModule,
+    FormsModule,
+  ],
   templateUrl: './table-page.component.html',
   styleUrls: ['./table-page.component.scss'],
 })
 export class TablePageComponent implements OnInit {
-  tables: string[] = ['Ano', 'Nie', 'Mozno', 'Preto'];
+  // TODO add all tables, but somewhere else
+  tables: string[] = [
+    'products',
+    'employees',
+    'orders',
+    'customers',
+    'offices',
+    'orderdetails',
+    'payments',
+    'productlines',
+  ];
   columns!: string[];
   customColumns: Column[] = [];
-  tableColumnContent!: TableColumnContent;
+  tableColumnContent!: TableContent;
   tableName!: string;
+  disableFilterColumns: boolean = false;
+  filterRequest: Filter = {
+    columnName: '',
+    firstCondition: '',
+    firstConditionValue: '',
+    secondCondition: '',
+    secondConditionValue: '',
+  };
 
-  ngOnInit(): void {
-    this.initColumn();
+  constructor(private dataService: DataService) {}
+
+  ngOnInit(): void {}
+
+  getFilteredTable(): void {
+    this.dataService
+      .getFilteredTable(this.tableName, this.filterRequest)
+      .pipe(
+        tap((values) => {
+          this.tableColumnContent = {
+            tableName: this.tableName,
+            rows: values.map((object) => Object.values(object)),
+          };
+        })
+      )
+      .subscribe(() => {});
+  }
+
+  getCustomTable(): void {
+    this.dataService
+      .getCustomTable(
+        this.tableName,
+        this.customColumns.filter((o) => !!o.name).map((o) => o.name)
+      )
+      .pipe(
+        tap((values) => {
+          console.log(values);
+
+          this.tableColumnContent = {
+            tableName: this.tableName,
+            rows: values.map((object) => Object.values(object)),
+          };
+          console.log(this.tableColumnContent);
+          this.disableFilterColumns = true;
+        })
+      )
+      .subscribe(() => {});
   }
 
   selectTable(tableName: any) {
     this.tableName = tableName;
+    this.dataService
+      .getAll(this.tableName)
+      .pipe(
+        tap((values) => {
+          this.tableColumnContent = {
+            tableName: this.tableName,
+            rows: values.map((object) => Object.values(object)),
+          };
+          this.initColumn();
+        })
+      )
+      .subscribe(() => {});
+  }
+
+  changeSecondCondition(): void {
+    if (this.filterRequest.firstCondition === 'less')
+      this.filterRequest.secondCondition = 'more';
+    else if (this.filterRequest.firstCondition === 'more')
+      this.filterRequest.secondCondition = 'less';
+    else this.filterRequest.secondCondition = undefined;
   }
 
   changeCustomColumn(column: any): void {
-    this.customColumns[
-      this.customColumns.findIndex((item) => item.id === column.id)
-    ] = column;
+    // this.customColumns[
+    //   this.customColumns.findIndex((item) => item.id === column.id)
+    // ] = column;
+    this.filterRequest = {
+      columnName: column.name,
+    };
     // todo: nesuvysi s tym ako pojdu funkcie, doplnkova uloha: vytvorit modely z databazy na zaklade selectu
     // poziadavka na backend aby vratil sfiltrovane data podla stlpcov
     // parsovat data do tableColumnContent
@@ -38,38 +123,28 @@ export class TablePageComponent implements OnInit {
     postup: back-end posle objekty ktore nebudu mat vsetky stlpce ako model,
     preto treba dat variables in model ako optional
     */
-    this.tableColumnContent = {
-      tableName: this.tableName,
-      rows: [
-        {
-          id: 1,
-          values: ['michal', 'Kroslak', 'ide', 'ano', 'neviem', 'mozno'],
-        },
-        {
-          id: 2,
-          values: ['Terezka', 'Bambus', 'ide', 'ano', 'neviem', 'mozno'],
-        },
-        {
-          id: 3,
-          values: ['Lucia', 'Trhana', 'ide', 'ano', 'neviem', 'mozno'],
-        },
-        {
-          id: 4,
-          values: ['Barbora', 'Malinka', 'ide', 'ano', 'neviem', 'mozno'],
-        },
-      ],
-    };
   }
 
   initColumn(): void {
     // request to backend for all columns
     // add columns into object
     // initCustomColumn neeed to be in async method...
-    this.columns = ['Michal', 'Ondrej', 'Tomas', 'Jarka', 'Damian', 'Ondrej'];
-    this.initCustomColumns();
+    if (!this.tableName) return;
+    this.dataService
+      .getColumnsName(this.tableName)
+      .pipe(
+        tap((o) => {
+          console.log(o);
+          this.columns = o;
+          this.initCustomColumns();
+          this.disableFilterColumns = true;
+        })
+      )
+      .subscribe(() => {});
   }
 
   initCustomColumns(): void {
+    this.customColumns = [];
     let poc = 1;
     this.columns.forEach(() => {
       this.customColumns.push({ id: poc++, name: '' });

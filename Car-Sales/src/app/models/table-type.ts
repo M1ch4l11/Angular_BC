@@ -1,6 +1,6 @@
-export interface TableColumnContent {
+export interface TableContent {
   tableName: string;
-  rows: Row[];
+  rows: any[];
 }
 
 export interface Column {
@@ -8,7 +8,10 @@ export interface Column {
   name: string;
 }
 
-interface Row {
-  id: number;
-  values: any[];
+export interface Filter {
+  columnName: String;
+  firstCondition?: String;
+  firstConditionValue?: String | number;
+  secondCondition?: String;
+  secondConditionValue?: String;
 }

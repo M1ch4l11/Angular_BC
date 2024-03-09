@@ -1,14 +1,14 @@
 <div class="table-container" *ngIf="!!tables">
   <mat-form-field class="select-table">
-    <mat-label>Select an Table</mat-label>
+    <mat-label>Select Table</mat-label>
     <mat-select (selectionChange)="selectTable($event.value)">
       <mat-option *ngFor="let table of tables" [value]="table">{{
         table
       }}</mat-option>
     </mat-select>
   </mat-form-field>
-  <div class="filter-container">
-    <div>
+  <div *ngIf="disableFilterColumns" class="filter-container">
+    <!-- <div>
       <ng-container *ngFor="let columnIndex of getColumnsArray()">
         <app-filter
           [id]="columnIndex"
@@ -16,11 +16,41 @@
           (columnEvent)="changeCustomColumn($event)"
         ></app-filter>
       </ng-container>
+    </div> -->
+    <div>
+      <app-filter
+        [id]="1"
+        [columns]="columns"
+        (columnEvent)="changeCustomColumn($event)"
+      ></app-filter>
+      <select
+        [(ngModel)]="filterRequest.firstCondition"
+        (ngModelChange)="changeSecondCondition()"
+      >
+        <option>equals</option>
+        <option>contains</option>
+        <option>less</option>
+        <option>more</option>
+      </select>
+      <input [(ngModel)]="filterRequest.firstConditionValue" />
+      <ng-container
+        *ngIf="
+          filterRequest.firstCondition === 'less' ||
+          filterRequest.firstCondition === 'more'
+        "
+      >
+        <select [(ngModel)]="filterRequest.secondCondition" disabled="true">
+          <option>less</option>
+          <option>more</option>
+        </select>
+        <input [(ngModel)]="filterRequest.secondConditionValue" />
+      </ng-container>
     </div>
-    <button>Run</button>
+    <button (click)="getFilteredTable()">Run</button>
   </div>
   <app-table
-    [customColumns]="customColumns"
+    [columns]="columns"
+    [filterRequest]="filterRequest"
     [tableContent]="tableColumnContent"
   ></app-table>
 </div>
