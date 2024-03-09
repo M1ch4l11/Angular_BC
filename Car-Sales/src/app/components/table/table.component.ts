@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Column, TableColumnContent } from 'src/app/models/table-type';
+import { Filter, TableContent } from 'src/app/models/table-type';
+import { DataService } from 'src/app/stores/data.service';
 
 @Component({
   selector: 'app-table',
@@ -10,6 +11,16 @@ import { Column, TableColumnContent } from 'src/app/models/table-type';
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent {
-  @Input() customColumns!: Column[];
-  @Input() tableContent!: TableColumnContent;
+  @Input() columns!: string[];
+  @Input() filterRequest!: Filter;
+  @Input() tableContent!: TableContent;
+
+  constructor(private dataService: DataService) {}
+
+  public exportExcel(): void {
+    this.dataService.downloadExcel(
+      this.tableContent.tableName,
+      this.filterRequest
+    );
+  }
 }

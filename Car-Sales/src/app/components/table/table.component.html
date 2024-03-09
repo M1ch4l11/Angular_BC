@@ -1,13 +1,13 @@
-<table *ngIf="!!customColumns && !!tableContent">
+<table *ngIf="!!columns && !!tableContent">
   <tr class="table-header">
-    <th class="header-item" *ngFor="let column of customColumns">
-      {{ column.name }}
+    <th class="header-item" *ngFor="let columnName of columns">
+      {{ columnName }}
     </th>
   </tr>
   <tr class="table-row" *ngFor="let row of tableContent.rows">
-    <td class="table-data" *ngFor="let valueColumn of row.values">
+    <td class="table-data" *ngFor="let valueColumn of row">
       {{ valueColumn }}
     </td>
   </tr>
 </table>
-<button>Export</button>
+<button *ngIf="!!tableContent" (click)="exportExcel()">Export</button>
