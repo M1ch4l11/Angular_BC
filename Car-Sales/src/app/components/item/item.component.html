@@ -3,25 +3,25 @@
     <p>
       {{ checkType() ? "Product code: " : "Employee Number: " }}
       <strong>
-        {{ checkType() ? item.productCode : item.employeeNumber }}</strong
+        {{ checkType() ? item.productcode : item.employeenumber }}</strong
       >
     </p>
     <h3>
-      {{ checkType() ? item.productLine : item.firstName }}
-      {{ checkType() ? item.productName : item.lastName }}
+      {{ checkType() ? item.productLine : item.firstname }}
+      {{ checkType() ? item.productname : item.lastname }}
     </h3>
   </div>
   <div class="content-wrapper middle-content">
     <p>
       {{ checkType() ? "Quantity: " : " email: "
-      }}<strong>{{ checkType() ? item.quantityInStock : item.email }}</strong>
+      }}<strong>{{ checkType() ? item.quantitynnstock : item.email }}</strong>
     </p>
     <p>
       {{ checkType() ? "BuyPrice: " : "Jobtitle: "
-      }}<strong>{{ checkType() ? item.buyPrice : item.jobTitle }}</strong>
+      }}<strong>{{ checkType() ? item.buyprice : item.jobtitle }}</strong>
     </p>
     <p *ngIf="!checkType()">
-      OfficeCode: <strong>{{ item.officeCode }}</strong>
+      OfficeCode: <strong>{{ item.officecode }}</strong>
     </p>
     <button class="more-info" (click)="loadEvent()">Show more</button>
   </div>

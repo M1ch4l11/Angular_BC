@@ -1,10 +1,10 @@
 export interface Employee {
-  employeeNumber: number;
-  officeCode: string;
-  lastName: string;
-  firstName: string;
+  employeenumber: number;
+  officecode: string;
+  lastname: string;
+  firstname: string;
   extension: string;
   email: string;
-  reportsTo: number | null;
-  jobTitle: string;
+  reportsto: number | null;
+  jobtitle: string;
 }
