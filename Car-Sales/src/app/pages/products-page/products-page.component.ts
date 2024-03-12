@@ -4,6 +4,7 @@ import { ListItemsComponent } from 'src/app/components/list-items/list-items.com
 import { Product } from 'src/app/models/product';
 import { DataService } from 'src/app/stores/data.service';
 import { tap } from 'rxjs';
+import { GlobalService } from 'src/app/stores/global-store.service';
 
 @Component({
   selector: 'app-products-page',
@@ -13,17 +14,18 @@ import { tap } from 'rxjs';
   styleUrls: ['./products-page.component.scss'],
 })
 export class ProductsPageComponent implements OnInit {
-  items!: Product[];
-
-  constructor(private dataService: DataService) {}
+  constructor(
+    private globalStore: GlobalService<any>,
+    private dataService: DataService
+  ) {}
 
   ngOnInit(): void {
     this.dataService
       .getAll('products')
       .pipe(
-        tap((products: any[]) => {
-          this.items = products;
-          console.log(products);
+        tap((values) => {
+          this.globalStore.setListItems(values);
+          console.log(this.globalStore.searchListItems());
         })
       )
       .subscribe(() => {});

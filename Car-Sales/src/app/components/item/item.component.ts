@@ -23,7 +23,7 @@ export class ItemComponent {
   }
 
   checkType(): boolean {
-    return this.type === 'Product' || false;
+    return this.type === 'products' || false;
   }
 
   deleteItem(item: any): void {

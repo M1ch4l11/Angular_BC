@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Output, WritableSignal } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-// import { DataService } from 'src/app/stores/data.service';
-// import { toSignal } from '@angular/core/rxjs-interop';
-// import { GlobalService } from 'src/app/stores/global.service';
+import { DataService } from 'src/app/stores/data.service';
+import { GlobalService } from 'src/app/stores/global-store.service';
+import { tap } from 'rxjs';
+import { ItemType } from 'src/app/models/item-type';
 
 @Component({
   selector: 'app-search',
@@ -12,12 +13,28 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent {
-  constructor() {} // private dataService: DataService // private globalStore: GlobalService<> add type
+  @Input() type!: ItemType;
+  timeout: any;
 
-  onInputChange(event: Event): void {
-    // dataService.get((event.target as HTMLInputElement).value);
-    // this.globalStore.createSignal(
-    //   toSignal(this.dataService.searchData<>('ddsdf', 'asd'))as WritableSignal<> add type
-    // );
+  constructor(
+    private dataService: DataService,
+    private globalStore: GlobalService<any>
+  ) {}
+
+  onInputEvent(event: Event): void {
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+      this.searchEvent((event.target as HTMLInputElement).value);
+    }, 500);
+  }
+
+  searchEvent(searchValue: string): void {
+    this.dataService
+      .getSearchFilteredTable(
+        this.type,
+        this.globalStore.getFilter(this.type, searchValue)
+      )
+      .pipe(tap((value) => this.globalStore.setListItems(value)))
+      .subscribe(() => {});
   }
 }

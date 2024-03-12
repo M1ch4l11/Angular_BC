@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Employee } from 'src/app/models/employee';
 import { ListItemsComponent } from 'src/app/components/list-items/list-items.component';
 import { DataService } from 'src/app/stores/data.service';
 import { tap } from 'rxjs';
+import { GlobalService } from 'src/app/stores/global-store.service';
 
 @Component({
   selector: 'app-users-page',
@@ -13,14 +14,17 @@ import { tap } from 'rxjs';
   styleUrls: ['./employees-page.component.scss'],
 })
 export class EmployeesPageComponent implements OnInit {
-  items!: Employee[];
+  items = computed(() => this.globalStore.searchListItems);
 
-  constructor(private dataService: DataService) {}
+  constructor(
+    private dataService: DataService,
+    private globalStore: GlobalService<any>
+  ) {}
 
   ngOnInit(): void {
     this.dataService
       .getAll('employees')
-      .pipe(tap((employee: any[]) => (this.items = employee)))
+      .pipe(tap((employees: any[]) => this.globalStore.setListItems(employees)))
       .subscribe(() => {});
   }
 }

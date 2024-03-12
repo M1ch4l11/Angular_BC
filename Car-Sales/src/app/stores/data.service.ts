@@ -1,7 +1,7 @@
-import { Injectable, Signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, filter, map } from 'rxjs';
-import { Column, Filter } from '../models/table-type';
+import { Observable } from 'rxjs';
+import { Filter, SearchFilter } from '../models/table-type';
 
 @Injectable({
   providedIn: 'root',
@@ -45,6 +45,17 @@ export class DataService {
   getFilteredTable(tableName: String, body: Filter): Observable<any[]> {
     return this.httpClient.put<any[]>(
       `${this.url}export/${tableName}/filtered`,
+      body,
+      { headers: this.headers }
+    );
+  }
+
+  getSearchFilteredTable(
+    tableName: String,
+    body: SearchFilter
+  ): Observable<any[]> {
+    return this.httpClient.put<any[]>(
+      `${this.url}search/${tableName}/bar`,
       body,
       { headers: this.headers }
     );

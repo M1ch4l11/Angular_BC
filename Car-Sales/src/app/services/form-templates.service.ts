@@ -201,7 +201,7 @@ export class FormTemplatesService {
   }
 
   getformTemplateByType(event: FormEvent): any {
-    return event.type == 'Employee'
+    return event.type == 'employees'
       ? this.getUserFormTemplate(event?.item)
       : this.getProductFormTemplate(event?.item);
   }

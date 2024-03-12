@@ -1,10 +1,10 @@
 <div class="container">
   <button (click)="onloadComponent({type})">Add</button>
   <div #dynamicComponentContainer></div>
-  <app-search></app-search>
-  <div class="items-container" *ngIf="items">
+  <app-search [type]="type"></app-search>
+  <div class="items-container" *ngIf="!!items">
     <app-item
-      *ngFor="let item of items"
+      *ngFor="let item of items()"
       (loadComponentEvent)="onloadComponent($event)"
       (deleteEvent)="deleteItemEvent($event)"
       [type]="type"

@@ -3,4 +3,4 @@ export interface FormEvent {
   item?: any;
 }
 
-export type ItemType = 'Product' | 'Employee';
+export type ItemType = 'products' | 'employees';

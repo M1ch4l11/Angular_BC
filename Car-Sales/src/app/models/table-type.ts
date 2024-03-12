@@ -15,3 +15,10 @@ export interface Filter {
   secondCondition?: String;
   secondConditionValue?: String;
 }
+
+export interface SearchFilter {
+  columnNameFirst: String;
+  columnNameSecond: String;
+  firstCondition: String;
+  firstConditionValue: String | number;
+}
