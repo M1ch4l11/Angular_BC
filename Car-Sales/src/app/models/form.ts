@@ -14,3 +14,10 @@ export interface FormField {
   required?: boolean;
   disabled?: boolean;
 }
+
+export interface SendEvent {
+  options: FormInput;
+  form: any;
+  btnTitle?: string;
+  table: string;
+}

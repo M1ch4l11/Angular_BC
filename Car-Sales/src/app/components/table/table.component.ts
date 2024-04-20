@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Filter, TableContent } from 'src/app/models/table-type';
-import { DataService } from 'src/app/stores/data.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-table',

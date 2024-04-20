@@ -2,9 +2,9 @@ import { Component, OnInit, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Employee } from 'src/app/models/employee';
 import { ListItemsComponent } from 'src/app/components/list-items/list-items.component';
-import { DataService } from 'src/app/stores/data.service';
+import { DataService } from 'src/app/services/data.service';
 import { tap } from 'rxjs';
-import { GlobalService } from 'src/app/stores/global-store.service';
+import { GlobalService } from 'src/app/store/global-store.service';
 
 @Component({
   selector: 'app-users-page',
@@ -23,8 +23,23 @@ export class EmployeesPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataService
-      .getAll('employees')
-      .pipe(tap((employees: any[]) => this.globalStore.setListItems(employees)))
+      .getSearchFilteredTable(
+        'employees',
+        this.globalStore.getFilter('employees', '')
+      )
+      .pipe(
+        tap((json: any) => {
+          this.globalStore.setListItems(json.rows);
+        })
+      )
+      .subscribe(() => {});
+    this.dataService
+      .getFirstPagination('employees')
+      .pipe(
+        tap((json: any) => {
+          this.globalStore.setPagination(json.pagination);
+        })
+      )
       .subscribe(() => {});
   }
 }

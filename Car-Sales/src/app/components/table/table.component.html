@@ -4,7 +4,7 @@
       {{ columnName }}
     </th>
   </tr>
-  <tr class="table-row" *ngFor="let row of tableContent.rows">
+  <tr class="table-row" *ngFor="let row of tableContent.rows | slice : 0 : 10">
     <td class="table-data" *ngFor="let valueColumn of row">
       {{ valueColumn }}
     </td>

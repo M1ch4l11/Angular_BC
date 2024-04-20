@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ListItemsComponent } from 'src/app/components/list-items/list-items.component';
-import { Product } from 'src/app/models/product';
-import { DataService } from 'src/app/stores/data.service';
+import { DataService } from 'src/app/services/data.service';
 import { tap } from 'rxjs';
-import { GlobalService } from 'src/app/stores/global-store.service';
+import { GlobalService } from 'src/app/store/global-store.service';
 
 @Component({
   selector: 'app-products-page',
@@ -21,11 +20,21 @@ export class ProductsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataService
-      .getAll('products')
+      .getSearchFilteredTable(
+        'products',
+        this.globalStore.getFilter('products', '')
+      )
       .pipe(
-        tap((values) => {
-          this.globalStore.setListItems(values);
-          console.log(this.globalStore.searchListItems());
+        tap((json: any) => {
+          this.globalStore.setListItems(json.rows);
+        })
+      )
+      .subscribe(() => {});
+    this.dataService
+      .getFirstPagination('products')
+      .pipe(
+        tap((json: any) => {
+          this.globalStore.setPagination(json.pagination);
         })
       )
       .subscribe(() => {});

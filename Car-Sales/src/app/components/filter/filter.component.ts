@@ -9,7 +9,6 @@ import { Column } from 'src/app/models/table-type';
   standalone: true,
   imports: [CommonModule, FormsModule, MatSelectModule],
   templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.scss'],
 })
 export class FilterComponent {
   @Output() columnEvent = new EventEmitter<Column>();
@@ -18,12 +17,7 @@ export class FilterComponent {
   columnName = '';
 
   newColumnName(event: any) {
-    // for mat-select
     this.columnName = event;
     this.columnEvent.emit({ id: this.id, name: event });
-
-    // for basic select
-    // this.columnName = event.target.value;
-    // this.columnEvent.emit({ id: this.id, columnName: event.target.value });
   }
 }

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DataService } from 'src/app/stores/data.service';
-import { GlobalService } from 'src/app/stores/global-store.service';
+import { DataService } from 'src/app/services/data.service';
+import { GlobalService } from 'src/app/store/global-store.service';
 import { tap } from 'rxjs';
 import { ItemType } from 'src/app/models/item-type';
 
@@ -29,12 +29,30 @@ export class SearchComponent {
   }
 
   searchEvent(searchValue: string): void {
+    if (!searchValue) {
+      this.dataService
+        .getFirstPagination('products')
+        .pipe(
+          tap((json: any) => {
+            this.globalStore.setPagination(json.pagination);
+          })
+        )
+        .subscribe(() => {});
+    }
+    this.globalStore.setSearchFilterWord(searchValue);
     this.dataService
       .getSearchFilteredTable(
         this.type,
         this.globalStore.getFilter(this.type, searchValue)
       )
-      .pipe(tap((value) => this.globalStore.setListItems(value)))
+      .pipe(
+        tap((json: any) => {
+          this.globalStore.setListItems(json.rows);
+          if (searchValue) {
+            this.globalStore.setPagination(json.pagination);
+          }
+        })
+      )
       .subscribe(() => {});
   }
 }
