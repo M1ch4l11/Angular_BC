@@ -1,6 +1,7 @@
 import {
   Component,
   Input,
+  OnDestroy,
   ViewChild,
   ViewContainerRef,
   computed,
@@ -10,19 +11,18 @@ import { ItemComponent } from '../item/item.component';
 import { FormEvent, ItemType } from 'src/app/models/item-type';
 import { SearchComponent } from '../search/search.component';
 import { FormTemplatesService } from 'src/app/services/form-templates.service';
-import { GlobalService } from 'src/app/stores/global-store.service';
-interface User {
-  login: string;
-  password: string;
-}
+import { GlobalService } from 'src/app/store/global-store.service';
+import { PaginationComponent } from '../pagination/pagination.component';
+import { FacadeListService } from './facade-list.service';
+
 @Component({
   selector: 'app-list-items',
   standalone: true,
-  imports: [CommonModule, ItemComponent, SearchComponent],
+  imports: [CommonModule, ItemComponent, SearchComponent, PaginationComponent],
   templateUrl: './list-items.component.html',
   styleUrls: ['./list-items.component.scss'],
 })
-export class ListItemsComponent<T> {
+export class ListItemsComponent<T> implements OnDestroy {
   @ViewChild('dynamicComponentContainer', { read: ViewContainerRef })
   dynamicComponentContainer!: ViewContainerRef;
   @Input() type!: ItemType;
@@ -30,15 +30,19 @@ export class ListItemsComponent<T> {
 
   constructor(
     private formTemplates: FormTemplatesService,
-    private globalStore: GlobalService<any>
+    private globalStore: GlobalService<any>,
+    private facadeService: FacadeListService
   ) {}
 
   onloadComponent(event: FormEvent): void {
     this.formTemplates.loadComponent(this.dynamicComponentContainer, event);
   }
 
-  deleteItemEvent(event: Event): void {
-    // this.items = this.items.filter((item) => item !== event);
-    // Todu: remove from databes also
+  deleteItemEvent(event: any): void {
+    this.facadeService.deleteItemEvent(event, this.type);
+  }
+
+  ngOnDestroy(): void {
+    this.facadeService.destroyEvent();
   }
 }

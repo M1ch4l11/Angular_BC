@@ -3,10 +3,10 @@
     <h2>{{ title }}</h2>
     <form [formGroup]="form" #formRef (ngSubmit)="send(form.getRawValue())">
       <div class="row" *ngFor="let field of fields" [formGroup]="form">
-        <label *ngIf="field.label && !field.visible">
+        <label *ngIf="field.label">
           {{ field.label }}{{ field.required ? "*" : "" }}
         </label>
-        <ng-container [ngSwitch]="field.type" *ngIf="!field.visible">
+        <ng-container [ngSwitch]="field.type">
           <input
             *ngSwitchCase="'input'"
             [type]="field.name === 'Email' ? 'email' : ''"

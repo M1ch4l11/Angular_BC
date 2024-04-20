@@ -16,8 +16,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { tap } from 'rxjs';
 import { FormField, FormInput } from 'src/app/models/form';
+import { DataService } from 'src/app/services/data.service';
+import { FacadeFormService } from './facade-form.service';
 
 @Component({
   selector: 'app-form',
@@ -40,8 +42,8 @@ export class FormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
-    private dynamicComponentContainer: ViewContainerRef
+    private dynamicComponentContainer: ViewContainerRef,
+    private facadeService: FacadeFormService
   ) {}
 
   ngOnInit(): void {
@@ -81,7 +83,16 @@ export class FormComponent implements OnInit {
   }
 
   send(options: FormInput): void {
-    console.log(options);
+    if (!this.form.valid) {
+      return;
+    }
+    this.facadeService.send({
+      options,
+      form: this.form,
+      btnTitle: this.btnTitle,
+      table: this.table,
+    });
+    this.destroyComponent();
   }
 
   closeForm(event: Event): void {
