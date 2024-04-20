@@ -40,29 +40,29 @@ export class FormTemplatesService {
       fields: [
         product
           ? {
-              name: 'productCode',
+              name: 'productcode',
               required: true,
               defaultValue: '' + product?.productcode || '',
-              visible: true,
+              placeholder: '...S10_1634',
               type: 'input',
               label: 'productCode',
             }
           : {
-              name: 'productCode',
-              visible: true,
+              name: 'productcode',
+              placeholder: '...S10_1634',
               type: 'input',
               label: 'productCode',
             },
         {
-          name: 'productLine',
+          name: 'productline',
           required: true,
-          placeholder: '..Classic Cars',
+          placeholder: '...Classic Cars',
           defaultValue: product?.productline || '',
           type: 'input',
           label: 'productLine',
         },
         {
-          name: 'productName',
+          name: 'productname',
           required: true,
           placeholder: '...1952 Alpine Renault 1300',
           defaultValue: product?.productname || '',
@@ -70,15 +70,15 @@ export class FormTemplatesService {
           label: 'productName',
         },
         {
-          name: 'productScale',
+          name: 'productscale',
           required: true,
           placeholder: '...1:10',
           defaultValue: product?.productscale || '',
           type: 'input',
-          label: 'productScale',
+          label: 'productscale',
         },
         {
-          name: 'productVendor',
+          name: 'productvendor',
           required: true,
           placeholder: '...Classic Metal Creations',
           defaultValue: product?.productvendor || '',
@@ -86,7 +86,7 @@ export class FormTemplatesService {
           label: 'productVendor',
         },
         {
-          name: 'productDescription',
+          name: 'productdescription',
           required: true,
           placeholder: '...Turnable front wheels; steering function...',
           defaultValue: product?.productdescription || '',
@@ -94,7 +94,7 @@ export class FormTemplatesService {
           label: 'productDescription',
         },
         {
-          name: 'quantityInStock',
+          name: 'quantityinstock',
           required: true,
           placeholder: '...7305',
           defaultValue: product?.quantityinstock || '',
@@ -102,12 +102,20 @@ export class FormTemplatesService {
           label: 'quantityInStock',
         },
         {
-          name: 'buyPrice',
+          name: 'buyprice',
           required: true,
           placeholder: '...98.58',
           defaultValue: product?.buyprice || '',
           type: 'inputNumber',
           label: 'buyPrice',
+        },
+        {
+          name: 'msrp',
+          required: true,
+          placeholder: '...98.58',
+          defaultValue: product?.msrp || '',
+          type: 'inputNumber',
+          label: 'msrp',
         },
       ],
     };
@@ -120,21 +128,19 @@ export class FormTemplatesService {
       fields: [
         employee
           ? {
-              name: 'employeeNumber',
+              name: 'employeenumber',
               required: true,
               defaultValue: employee?.employeenumber || '',
-              visible: true,
               type: 'inputNumber',
               label: 'employeeNumber',
             }
           : {
-              name: 'employeeNumber',
-              visible: true,
+              name: 'employeenumber',
               type: 'input',
               label: 'employeeNumber',
             },
         {
-          name: 'officeCode',
+          name: 'officecode',
           required: true,
           placeholder: '..1',
           defaultValue: employee?.officecode || '',
@@ -142,7 +148,7 @@ export class FormTemplatesService {
           label: 'officeCode',
         },
         {
-          name: 'Name',
+          name: 'firstname',
           required: true,
           placeholder: '...Michal',
           defaultValue: employee?.firstname || '',
@@ -150,7 +156,7 @@ export class FormTemplatesService {
           label: 'Name',
         },
         {
-          name: 'Surname',
+          name: 'lastname',
           required: true,
           placeholder: '...Kroslak',
           defaultValue: employee?.lastname || '',
@@ -158,7 +164,15 @@ export class FormTemplatesService {
           label: 'Surname',
         },
         {
-          name: 'Email',
+          name: 'extension',
+          required: true,
+          placeholder: '...x5800',
+          defaultValue: employee?.extension || '',
+          type: 'input',
+          label: 'Extension',
+        },
+        {
+          name: 'email',
           required: true,
           placeholder: '...kros.mic@gmail.com',
           defaultValue: employee?.email || '',
@@ -166,7 +180,7 @@ export class FormTemplatesService {
           label: 'Email',
         },
         {
-          name: 'reportsTo',
+          name: 'reportsto',
           required: true,
           placeholder: '...1002',
           defaultValue: employee?.reportsto || '',
@@ -174,7 +188,7 @@ export class FormTemplatesService {
           label: 'reportsTo',
         },
         {
-          name: 'jobTitle',
+          name: 'jobtitle',
           required: true,
           placeholder: '...fvdlmcj',
           defaultValue: employee?.jobtitle || '',
@@ -184,13 +198,6 @@ export class FormTemplatesService {
       ],
     };
   }
-
-  // insertStyle(elementRef: HTMLElement): void {
-  //   elementRef.style.position = 'fixed';
-  //   elementRef.style.width = '100%';
-  //   elementRef.style.display = 'flex';
-  //   elementRef.style.justifyContent = 'center';
-  // }
 
   componentEvent(
     dynamicComponentContainer: ViewContainerRef

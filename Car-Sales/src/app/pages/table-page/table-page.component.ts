@@ -4,9 +4,9 @@ import { TableComponent } from 'src/app/components/table/table.component';
 import { FilterComponent } from 'src/app/components/filter/filter.component';
 import { Column, Filter, TableContent } from 'src/app/models/table-type';
 import { MatSelectModule } from '@angular/material/select';
-import { DataService } from 'src/app/stores/data.service';
+import { DataService } from 'src/app/services/data.service';
 import { tap } from 'rxjs';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-table-page',
@@ -27,7 +27,7 @@ export class TablePageComponent implements OnInit {
     'products',
     'employees',
     'orders',
-    'customers',
+    'customer',
     'offices',
     'orderdetails',
     'payments',
@@ -57,7 +57,7 @@ export class TablePageComponent implements OnInit {
         tap((values) => {
           this.tableColumnContent = {
             tableName: this.tableName,
-            rows: values.map((object) => Object.values(object)),
+            rows: values.map((object: any) => Object.values(object)),
           };
         })
       )
@@ -72,13 +72,10 @@ export class TablePageComponent implements OnInit {
       )
       .pipe(
         tap((values) => {
-          console.log(values);
-
           this.tableColumnContent = {
             tableName: this.tableName,
             rows: values.map((object) => Object.values(object)),
           };
-          console.log(this.tableColumnContent);
           this.disableFilterColumns = true;
         })
       )
@@ -87,8 +84,15 @@ export class TablePageComponent implements OnInit {
 
   selectTable(tableName: any) {
     this.tableName = tableName;
+    this.filterRequest = {
+      columnName: '',
+      firstCondition: '',
+      firstConditionValue: '',
+      secondCondition: '',
+      secondConditionValue: '',
+    };
     this.dataService
-      .getAll(this.tableName)
+      .getAllForTable(this.tableName)
       .pipe(
         tap((values) => {
           this.tableColumnContent = {
@@ -131,7 +135,9 @@ export class TablePageComponent implements OnInit {
     // initCustomColumn neeed to be in async method...
     if (!this.tableName) return;
     this.dataService
-      .getColumnsName(this.tableName)
+      .getColumnsName(
+        this.tableName === 'customer' ? 'customers' : this.tableName
+      )
       .pipe(
         tap((o) => {
           console.log(o);

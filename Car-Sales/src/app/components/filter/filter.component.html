@@ -1,9 +1,3 @@
-<!-- <select (change)="newColumnName($event)" [(ngModel)]="columnName">
-  <option *ngFor="let column of columns" [value]="column">
-    {{ column }}
-  </option>
-</select> -->
-
 <mat-form-field>
   <mat-label>Select Column</mat-label>
   <mat-select (selectionChange)="newColumnName($event.value)">

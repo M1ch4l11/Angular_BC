@@ -8,15 +8,6 @@
     </mat-select>
   </mat-form-field>
   <div *ngIf="disableFilterColumns" class="filter-container">
-    <!-- <div>
-      <ng-container *ngFor="let columnIndex of getColumnsArray()">
-        <app-filter
-          [id]="columnIndex"
-          [columns]="columns"
-          (columnEvent)="changeCustomColumn($event)"
-        ></app-filter>
-      </ng-container>
-    </div> -->
     <div>
       <app-filter
         [id]="1"
@@ -54,11 +45,3 @@
     [tableContent]="tableColumnContent"
   ></app-table>
 </div>
-
-<!-- <ng-container *ngFor="let column of Array.from({ length: customColumns.length }, (_, index) => index + 1)">
-      <app-filter
-        [id]="column"
-        [columns]="columns"
-        (columnEvent)="changeCustomColumn($event)"
-      ></app-filter>
-</ng-container> -->
