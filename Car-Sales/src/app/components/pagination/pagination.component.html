@@ -1,0 +1,18 @@
+<div>
+  <div *ngIf="pagination() as paginationStream">
+    <!-- icon -->
+    <mat-icon fontIcon="skip_previous" (click)="previousPage()"></mat-icon>
+    <!-- number -->
+    {{ paginationStream.currentPage - 1 }}
+    <!-- current number -->
+    <div class="current-page">{{ paginationStream.currentPage }}</div>
+    <!-- number -->
+    {{ paginationStream.currentPage + 1 }}
+    <!-- icon -->
+    <mat-icon fontIcon="skip_next" (click)="nextPage()"></mat-icon>
+    <!-- total pages -->
+    <div class="total-page">Total Page: {{ paginationStream.totalPage }}</div>
+    <!-- total rows -->
+    <div class="total-records">Total records: {{ paginationStream.rows }}</div>
+  </div>
+</div>
