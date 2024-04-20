@@ -1,28 +1,28 @@
-<form [formGroup]="profileForm" (ngSubmit)="userLogin()">
-  <h2>User Login</h2>
-  <mat-form-field class="example-full-width">
-    <mat-label>Login</mat-label>
-    <input
-      matInput
-      style="resize: none; height: 15px"
-      placeholder="Michal11"
-      formControlName="login"
-    />
-  </mat-form-field>
-  <mat-form-field class="example-full-width">
-    <mat-label>password</mat-label>
-    <input
-      matInput
-      style="resize: none; height: 15px"
-      placeholder="hds!nd.#"
-      formControlName="password"
-    />
-  </mat-form-field>
-  <button class="login" type="submit">Login</button>
+<form [formGroup]="profileForm" (ngSubmit)="authEvent()">
+  <ng-container *ngIf="!login()">
+    <h2>User Login</h2>
+    <mat-form-field class="example-full-width">
+      <mat-label>email</mat-label>
+      <input
+        matInput
+        style="resize: none; height: 15px"
+        placeholder="Michal11"
+        formControlName="email"
+        type="email"
+      />
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>password</mat-label>
+      <input
+        matInput
+        style="resize: none; height: 15px"
+        placeholder="221313"
+        type="password"
+        formControlName="password"
+      />
+    </mat-form-field>
+  </ng-container>
+  <button class="login" type="submit">
+    {{ !!login() ? "Logout" : "Login" }}
+  </button>
 </form>
-
-<!-- <ng-container *ngIf="!!firstSignal">
-  <div *ngFor="let item of firstSignal()">
-    {{ item.login }} {{ item.password }}
-  </div>
-</ng-container> -->

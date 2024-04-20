@@ -1,13 +1,14 @@
 <nav>
   <!-- Brand -->
-  <img alt="Brand" />
-  <ul>
+  <!-- <img alt="Brand" /> -->
+  <ul *ngIf="login()">
     <li><a routerLink="/tables" routerLinkActive="active">Tables</a></li>
     <li><a routerLink="/products" routerLinkActive="active">Products</a></li>
-    <li><a routerLink="/employees" routerLinkActive="active">Employees</a></li>
+    <li *ngIf="admin()">
+      <a routerLink="/employees" routerLinkActive="active">Employees</a>
+    </li>
   </ul>
   <div class="account-container">
-    <!-- searchComponent -->
     <img
       class="account-brand"
       src="../../../assets/images/account_icon.png"

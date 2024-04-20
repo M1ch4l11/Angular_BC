@@ -1,4 +1,4 @@
-import { Component, OnInit, Signal, computed, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import {
@@ -7,7 +7,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-// import { GlobalService } from 'src/app/stores/global.service';
+import { DataService } from 'src/app/services/data.service';
+import { Subscription, tap } from 'rxjs';
+import { GlobalService } from 'src/app/store/global-store.service';
+import { Router } from '@angular/router';
+import { Filter, SearchFilter } from 'src/app/models/table-type';
+import { FacadeLoginService } from './facade-login.service';
 
 @Component({
   selector: 'app-login',
@@ -16,32 +21,41 @@ import {
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   profileForm!: FormGroup;
-  // firstSignal!: Signal<{ login: String; password: String }[]>;
+  login = computed(() => this.globalService.userLogin());
 
-  constructor() {} // private storeService: GlobalService<{ login: String; password: String }>
+  constructor(
+    private globalService: GlobalService<any>,
+    private facadeLogin: FacadeLoginService
+  ) {}
 
   ngOnInit(): void {
     this.createProfileForm();
-    // this.firstSignal = computed(() => this.storeService.searchListItems());
   }
 
-  userLogin(): void {
-    // check user login in database
-    // save to globalStore as signal & open products
-
-    console.log(this.profileForm.getRawValue());
-    // const newValues = this.profileForm.getRawValue();
-    // this.storeService.updateSearchListItem(newValues);
-    // this.storeService.createSignal(newValues);
-    // this.firstSignal = computed(() => this.storeService.searchListItems());
+  authEvent(): void {
+    if (this.login()) {
+      this.globalService.setUserLogin(false);
+      this.globalService.setAdminLogin(false);
+      sessionStorage.removeItem('login');
+      sessionStorage.removeItem('Admin');
+    }
+    const formValues = this.profileForm.getRawValue();
+    if (!this.profileForm.valid || !parseInt(formValues.password)) {
+      return;
+    }
+    this.facadeLogin.authEvent(this.facadeLogin.createUserFilter(formValues));
   }
 
   createProfileForm(): void {
     this.profileForm = new FormGroup({
-      login: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
     });
+  }
+
+  ngOnDestroy(): void {
+    this.facadeLogin.destroy();
   }
 }
